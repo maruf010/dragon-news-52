@@ -1,11 +1,26 @@
-import React from 'react';
-import { NavLink } from 'react-router';
+import React, { use } from 'react';
+import { Link, NavLink } from 'react-router';
 import userPic from '../assets/user.png'
+import { AuthContext } from '../provider/AuthProvider';
+import { BsListNested } from 'react-icons/bs';
 
 const Navbar = () => {
+    const { user, logOut } = use(AuthContext);
+    const handleLogout = () => {
+        // console.log('hygsfysdgf');
+        logOut()
+            .then(() => {
+                alert('LogOut Successfully')
+            })
+            .catch((error) => {
+                console.log(error);
+                
+            })
+    };
+    
     return (
         <div className='flex justify-between items-center'>
-            <div className=''></div>
+            <div className=''>{user && user.email}</div>
             <div className='nav flex gap-5 text-accent'>
                 <NavLink to='/'>Home</NavLink>
                 <NavLink to='/about'>About</NavLink>
@@ -13,7 +28,11 @@ const Navbar = () => {
             </div>
             <div className='login-btn flex gap-5'>
                 <img src={userPic} alt="" />
-                <button className='btn btn-primary px-8'>Login</button>
+                {user ?
+                    <button onClick={handleLogout} className='btn btn-primary px-8'>Logout</button>
+                    :
+                    <Link to='/auth/login' className='btn btn-secondary px-8'>
+                        Login</Link>}
             </div>
         </div>
     );
