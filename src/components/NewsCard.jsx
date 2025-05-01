@@ -1,8 +1,10 @@
 import { CiBookmark, CiShare2 } from "react-icons/ci";
 import { FaRegEye, FaStar } from "react-icons/fa";
+import { Link } from "react-router";
 
 const NewsCard = ({ news }) => {
     const {
+        id,
         title,
         rating,
         total_view,
@@ -47,7 +49,7 @@ const NewsCard = ({ news }) => {
                 <p className="text-sm text-gray-700">
                     {details.length > 200 ? details.slice(0, 200) + "..." : details}
                 </p>
-                <a href="#" className="text-orange-500 font-semibold mt-2">Read More</a>
+                <Link to={`/news-details/${id}`} className="text-orange-500 font-semibold mt-2">Read More</Link>
 
                 {/* Footer */}
                 <div className="card-actions justify-between items-center mt-4 border-t pt-4">
